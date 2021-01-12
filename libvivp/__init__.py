@@ -46,7 +46,7 @@ def install(vivp_dir, package_list):
 def update(vivp_dir, package_list):
     if not is_vivp_dir(vivp_dir):
         raise Exception("Not VIVP directory")
-    pass
+    refresh_all_dependencies(vivp_dir)
 
 def remove(vivp_dir, package_list):
     if not is_vivp_dir(vivp_dir):
@@ -78,6 +78,7 @@ def refresh_all_dependencies(vivp_dir):
         raise Exception("Not VIVP directory")
     p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=False)
 
+    print("[vivp]", "Clearing cache")
     CACHE_DIR = get_cache_dir(vivp_dir)
     REPOS_DIR = get_repos_dir(vivp_dir)
     # Remove VPACKAGE_HIDDEN directory
@@ -90,10 +91,25 @@ def refresh_all_dependencies(vivp_dir):
 
     # iterate through all packages and clone
     for dep in p.data['dependencyList']:
+        print("[vivp]", "git clone ", dep)
         output = git.Git(REPOS_DIR).clone(dep)
         print(output)
 
     pass
+
+def get_files_from_dependencies(vivp_dir):
+    if not is_vivp_dir(vivp_dir):
+        raise Exception("Not VIVP directory")
+    p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=False)
+    dependency_files_list = []
+    if os.path.isdir(get_repos_dir(vivp_dir)):
+        folder_list = os.listdir(get_repos_dir(vivp_dir))
+        for dep in folder_list:
+            package_dep_path = os.path.join(get_repos_dir(vivp_dir), dep)
+            p = vPackage(filePath=os.path.join(package_dep_path, VPACKAGE_JSON), createNew=False, saveable=False)
+            for dep_file in p.data['fileList']:
+                dependency_files_list.append(os.path.join(package_dep_path, dep_file))
+    return dependency_files_list
 
 def execute(vivp_dir):
     if not is_vivp_dir(vivp_dir):
@@ -104,17 +120,26 @@ def execute(vivp_dir):
         file_list.append(f)
     for f in p.data['testBench']:
         file_list.append(f)
-    
+    dependency_files = get_files_from_dependencies(vivp_dir)
+    for f in dependency_files:
+        file_list.append(f)
+
     vcd_files = list(filter(lambda x: x.endswith(".vcd"), os.listdir() ))
     for vcd_file in vcd_files:
         os.remove(vcd_file)
+    
+    out_files = list(filter(lambda x: x.endswith(".out"), os.listdir() ))
+    for out_file in out_files:
+        os.remove(out_file)
+
+    # TODO : Load files from .vpackage/repos/
 
     exec_str = "iverilog " + " ".join(file_list)
     print("[vivp]", exec_str)
     proc = subprocess.Popen(exec_str.split(" "))
     proc.wait()
 
-    exec_str = "vvp a.out"
+    exec_str = "vvp a.out" # check list of .out files
     print("[vivp]", exec_str)
     proc = subprocess.Popen(exec_str.split(" "))
     proc.wait()
