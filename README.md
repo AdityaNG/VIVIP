@@ -10,6 +10,11 @@ Verilog Package Manager. A simple package manager for all your verilog projects
 Install with pip (python>=3.6):
 
 ```bash
+$ python3 -m pip install vivp
+```
+
+To install the very latest version [may be buggy]
+```bash
 $ pip install git+https://github.com/AdityaNG/VIVP.git
 ```
 
@@ -38,11 +43,12 @@ If you see something that you know you can help fix or implement, do contact me 
 Please read [Contributing](https://github.com/AdityaNG/VIVP/blob/main/CONTRIBUTING.md).
 
 ### TODO List
-1. Add a run command
-2. Install / Remove command triggers a FULL cache clear and re-download. This needs to be optimized
-3. Recursive imports need to be implemented with a dependency tree check
-4. Make use of version control to download a specific version of a package
-5. Unit tests to see if package is functional
+1. (DONE) Add a run command
+2. Add support fom non vpackage projects
+3. Install / Remove command triggers a FULL cache clear and re-download. This needs to be optimized
+4. Recursive imports need to be implemented with a dependency tree check
+5. Make use of version control to download a specific version of a package
+6. Unit tests to see if package is functional
 
 ## License
 
