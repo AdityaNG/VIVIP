@@ -2,7 +2,7 @@
 
 <img src="https://github.com/AdityaNG/VIVP/blob/main/docs/img/demo1.png?raw=true" width="600">
 
-
+VIVP Installs Verilog Packages
 Verilog Package Manager. A simple package manager for all your verilog projects
 
 ## Installing
