@@ -6,29 +6,29 @@ import argparse
 import os
 import sys
 
-import libvpm
+import libvivp
 """
-vpm --setup
-vpm -s
+vivp --setup
+vivp -s
 
-vpm --install <package>
-vpm -i <package>
+vivp --install <package>
+vivp -i <package>
 
-vpm --update <package>
-vpm -u <package>
+vivp --update <package>
+vivp -u <package>
 
-vpm --remove <package>
-vpm -r <package>
+vivp --remove <package>
+vivp -r <package>
 
-vpm --list
-vpm -l
+vivp --list
+vivp -l
 """
 
 argparser = argparse.ArgumentParser(description="Verilog Package Manager")
 argparser.add_argument('-s', '--setup', help='Setup current directory as Verilog Package')
 argparser.add_argument('-i', '--install', help='Install a package', nargs='+')
-argparser.add_argument('-u', '--update', help='Update a package [vpm -u * to update all]', nargs='+')
-argparser.add_argument('-r', '--remove', help='Remove a package [vpm -r * to remove all]', nargs='+')
+argparser.add_argument('-u', '--update', help='Update a package [vivp -u * to update all]', nargs='+')
+argparser.add_argument('-r', '--remove', help='Remove a package [vivp -r * to remove all]', nargs='+')
 argparser.add_argument('-l', '--list', help='List all packages')
 args = argparser.parse_args()
 
@@ -38,12 +38,12 @@ if True:
         
         setup_dir = os.path.join(os.getcwd(), args.setup)
         #print(setup_dir)
-        if libvpm.utils.is_vpm_dir(setup_dir):
-            print("Already VPM directory")
+        if libvivp.utils.is_vivp_dir(setup_dir):
+            print("Already VIVP directory")
             exit(0)
         """
-        if libvpm.is_vpm_dir(setup_dir):
-            print("Already a VPM directory")
+        if libvivp.is_vivp_dir(setup_dir):
+            print("Already a VIVP directory")
             exit(0)
         """
         # Setup "vpackage.json"
@@ -51,24 +51,24 @@ if True:
         packageAuthors = input("Enter Authors [space seperated] : ").split(' ')
         packageURL = input("Enter package remote URL [optional] : ")
 
-        libvpm.setup(setup_dir, packageName=packageName, packageAuthors=packageAuthors, packageURL=packageURL)
+        libvivp.setup(setup_dir, packageName=packageName, packageAuthors=packageAuthors, packageURL=packageURL)
     else:
         """
-        if not libvpm.is_vpm_dir(os.getcwd()):
-            print("Not a VPM directory")
+        if not libvivp.is_vivp_dir(os.getcwd()):
+            print("Not a VIVP directory")
             exit(0)
         """
         # Check for remaining options
         if args.install:
             #print(os.path.join(os.getcwd(), '.'))
-            #libvpm.install(os.path.join(os.getcwd(), '.'), args.install)
-            libvpm.install(os.getcwd(), args.install)
+            #libvivp.install(os.path.join(os.getcwd(), '.'), args.install)
+            libvivp.install(os.getcwd(), args.install)
         elif args.update:
-            libvpm.update(os.getcwd(), args.update)
+            libvivp.update(os.getcwd(), args.update)
         elif args.remove:
-            libvpm.remove(os.getcwd(), args.remove)
+            libvivp.remove(os.getcwd(), args.remove)
         elif args.list:
-            libvpm.list_vpm(os.getcwd())
+            libvivp.list_vivp(os.getcwd())
         else:
             argparser.print_help()
 

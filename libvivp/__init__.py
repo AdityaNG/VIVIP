@@ -1,15 +1,15 @@
 import os
 import json
-from .utils import is_vpm_dir, VPACKAGE_JSON, is_valid_git_url, VPACKAGE_HIDDEN, get_repos_dir, get_cache_dir
+from .utils import is_vivp_dir, VPACKAGE_JSON, is_valid_git_url, VPACKAGE_HIDDEN, get_repos_dir, get_cache_dir
 from .vPackage import vPackage
 from git import Git
 import git
 import shutil
 
-def setup(vpm_dir, packageName, packageAuthors, packageURL):
-    if is_vpm_dir(vpm_dir):
-        raise Exception("Already VPM directory")
-    p = vPackage(filePath=os.path.join(vpm_dir, VPACKAGE_JSON), createNew=True, saveable=True)
+def setup(vivp_dir, packageName, packageAuthors, packageURL):
+    if is_vivp_dir(vivp_dir):
+        raise Exception("Already VIVP directory")
+    p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=True, saveable=True)
     p.data['packageDetails']['packageName'] = packageName
     p.data['packageDetails']['packageAuthors'] = packageAuthors
     if packageURL:
@@ -17,15 +17,15 @@ def setup(vpm_dir, packageName, packageAuthors, packageURL):
             p.data['packageURL'] = packageURL
         else:
             raise Exception('Invalid packageURL : ' + packageURL)
-    #g = Git(vpm_dir)
+    #g = Git(vivp_dir)
     p.save()
     print(p)
     pass
 
-def install(vpm_dir, package_list):
-    if not is_vpm_dir(vpm_dir):
-        raise Exception("Not VPM directory")
-    p = vPackage(filePath=os.path.join(vpm_dir, VPACKAGE_JSON), createNew=False, saveable=True)
+def install(vivp_dir, package_list):
+    if not is_vivp_dir(vivp_dir):
+        raise Exception("Not VIVP directory")
+    p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=True)
 
 
     for dep in package_list:
@@ -39,18 +39,18 @@ def install(vpm_dir, package_list):
     
     p.save()
     print(p)
-    refresh_all_dependencies(vpm_dir)
+    refresh_all_dependencies(vivp_dir)
     pass
 
-def update(vpm_dir, package_list):
-    if not is_vpm_dir(vpm_dir):
-        raise Exception("Not VPM directory")
+def update(vivp_dir, package_list):
+    if not is_vivp_dir(vivp_dir):
+        raise Exception("Not VIVP directory")
     pass
 
-def remove(vpm_dir, package_list):
-    if not is_vpm_dir(vpm_dir):
-        raise Exception("Not VPM directory")
-    p = vPackage(filePath=os.path.join(vpm_dir, VPACKAGE_JSON), createNew=False, saveable=True)
+def remove(vivp_dir, package_list):
+    if not is_vivp_dir(vivp_dir):
+        raise Exception("Not VIVP directory")
+    p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=True)
 
 
     for dep in package_list:
@@ -64,21 +64,21 @@ def remove(vpm_dir, package_list):
     
     p.save()
     print(p)
-    refresh_all_dependencies(vpm_dir)
+    refresh_all_dependencies(vivp_dir)
     pass
 
-def list_vpm(vpm_dir):
-    if not is_vpm_dir(vpm_dir):
-        raise Exception("Not VPM directory")
+def list_vivp(vivp_dir):
+    if not is_vivp_dir(vivp_dir):
+        raise Exception("Not VIVP directory")
     pass
 
-def refresh_all_dependencies(vpm_dir):
-    if not is_vpm_dir(vpm_dir):
-        raise Exception("Not VPM directory")
-    p = vPackage(filePath=os.path.join(vpm_dir, VPACKAGE_JSON), createNew=False, saveable=False)
+def refresh_all_dependencies(vivp_dir):
+    if not is_vivp_dir(vivp_dir):
+        raise Exception("Not VIVP directory")
+    p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=False)
 
-    CACHE_DIR = get_cache_dir(vpm_dir)
-    REPOS_DIR = get_repos_dir(vpm_dir)
+    CACHE_DIR = get_cache_dir(vivp_dir)
+    REPOS_DIR = get_repos_dir(vivp_dir)
     # Remove VPACKAGE_HIDDEN directory
     if os.path.isdir(CACHE_DIR):
         #os.rm(CACHE_DIR)

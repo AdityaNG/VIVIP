@@ -1,5 +1,5 @@
 import json
-from .utils import is_vpm_file
+from .utils import is_vivp_file
 """
 {
     'packageDetails': {
@@ -22,7 +22,7 @@ class vPackage:
             self.filePath = filePath
             self.saveable = saveable
             
-            if is_vpm_file(filePath):    # load from filePath
+            if is_vivp_file(filePath):    # load from filePath
                 with open(filePath) as f:
                     self.data = json.load(f)
             elif createNew:             # create new

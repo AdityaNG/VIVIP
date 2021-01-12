@@ -1,4 +1,4 @@
-# VPM
+# VIVP
 
 <img src="https://github.com/AdityaNG/VPM/blob/main/docs/img/demo1.png?raw=true" width="600">
 
@@ -18,15 +18,15 @@ $ pip install git+https://github.com/AdityaNG/VPM.git
 cd into the desired directory run the following; you will be prompted to enter your package Name, list of Authors and an optional remote URL
 
 ```bash
-$ vpm -s .   # setup
+$ vivp -s .   # setup
 ```
 To install dependencies : 
 ```bash
-$ vpm -i https://github.com/...
+$ vivp -i https://github.com/...
 ```
 To remove dependencies : 
 ```bash
-$ vpm -i https://github.com/...
+$ vivp -i https://github.com/...
 ```
 All dependencies are stored at `project_directory/.vpackage/repos/`
 
@@ -42,6 +42,7 @@ Please read [Contributing](https://github.com/AdityaNG/VPM/blob/main/CONTRIBUTIN
 2. Install / Remove command triggers a FULL cache clear and re-download. This needs to be optimized
 3. Recursive imports need to be implemented with a dependency tree check
 4. Make use of version control to download a specific version of a package
+5. Unit tests to see if package is functional
 
 ## License
 

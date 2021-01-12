@@ -1,12 +1,12 @@
 from distutils.core import setup
 
 setup(
-    name="vpm",
+    name="vivp",
     version="0.0.1",
     author="Aditya NG",
     author_email="adityang5@gmail.com",
-    packages=['libvpm'],
-    scripts=['bin/vpm'],
+    packages=['libvivp'],
+    scripts=['bin/vivp'],
     license='LICENSE.txt',
     url='https://github.com/AdityaNG/VPM',
     description="A package manager for Verilog Projects",

@@ -1,4 +1,4 @@
-VPM - Verilog Package Manager 
+VIVP - Verilog Package Manager 
 A simple package manager for all your verilog projects
 
 Installing
@@ -12,13 +12,13 @@ Creating a Verilog Package
 
 cd into the desired directory run the following; you will be prompted to enter your package Name, list of Authors and an optional remote URL
 
-$ vpm -s .   # setup
+$ vivp -s .   # setup
 
 To install dependencies : 
-$ vpm -i https://github.com/...
+$ vivp -i https://github.com/...
 
 To remove dependencies : 
-$ vpm -i https://github.com/...
+$ vivp -i https://github.com/...
 
 All dependencies are stored at `project_directory/.vpackage/repos/`
 

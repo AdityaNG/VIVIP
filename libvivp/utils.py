@@ -6,7 +6,7 @@ VPACKAGE_JSON = 'vpackage.json'
 VPACKAGE_HIDDEN = '.vpackage'
 REPOS = 'repos'
 
-def is_vpm_dir(d):
+def is_vivp_dir(d):
     return os.path.exists(os.path.join(d, VPACKAGE_JSON))
     if not os.path.exists(os.path.join(d, VPACKAGE_JSON)):
         return False
@@ -20,7 +20,7 @@ def is_vpm_dir(d):
 
     return True
 
-def is_vpm_file(d):
+def is_vivp_file(d):
     try:
       open(d, "r")
       return True
@@ -39,8 +39,8 @@ def is_valid_git_url(u):
         return False
     return True
 
-def get_cache_dir(vpm_dir):
-    return os.path.join(vpm_dir, VPACKAGE_HIDDEN)
+def get_cache_dir(vivp_dir):
+    return os.path.join(vivp_dir, VPACKAGE_HIDDEN)
 
-def get_repos_dir(vpm_dir):
-    return os.path.join(vpm_dir, VPACKAGE_HIDDEN, REPOS)
+def get_repos_dir(vivp_dir):
+    return os.path.join(vivp_dir, VPACKAGE_HIDDEN, REPOS)
