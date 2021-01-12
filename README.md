@@ -33,8 +33,16 @@ All dependencies are stored at `project_directory/.vpackage/repos/`
 ## Contributing
 If you see something that you know you can help fix or implement, do contact me at :
 1. Mail : adityang5@gmail.com
-2. Discord : <to be added>
+2. Discord : to be added
+
+Please read [Contributing](https://github.com/AdityaNG/VPM/blob/main/CONTRIBUTING.md).
+
+### TODO List
+1. Add a run command
+2. Install / Remove command triggers a FULL cache clear and re-download. This needs to be optimized
+3. Recursive imports need to be implemented with a dependency tree check
+4. Make use of version control to download a specific version of a package
 
 ## License
 
-This software is released under the [MIT License](LICENSE).
+This software is released under the [MIT License](https://github.com/AdityaNG/VPM/blob/main/LICENSE.txt).

@@ -25,7 +25,7 @@ All dependencies are stored at `project_directory/.vpackage/repos/`
 Contributing
 If you see something that you know you can help fix or implement, do contact me at :
 1. Mail : adityang5@gmail.com
-2. Discord : <to be added>
+2. Discord : to be added
 
 License
 
