@@ -1,6 +1,6 @@
 # VIVP
 
-<img src="https://github.com/AdityaNG/VPM/blob/main/docs/img/demo1.png?raw=true" width="600">
+<img src="https://github.com/AdityaNG/VIVP/blob/main/docs/img/demo1.png?raw=true" width="600">
 
 
 Verilog Package Manager. A simple package manager for all your verilog projects
@@ -10,7 +10,7 @@ Verilog Package Manager. A simple package manager for all your verilog projects
 Install with pip (python>=3.6):
 
 ```bash
-$ pip install git+https://github.com/AdityaNG/VPM.git
+$ pip install git+https://github.com/AdityaNG/VIVP.git
 ```
 
 ## Creating a Verilog Package
@@ -35,7 +35,7 @@ If you see something that you know you can help fix or implement, do contact me 
 1. Mail : adityang5@gmail.com
 2. Discord : to be added
 
-Please read [Contributing](https://github.com/AdityaNG/VPM/blob/main/CONTRIBUTING.md).
+Please read [Contributing](https://github.com/AdityaNG/VIVP/blob/main/CONTRIBUTING.md).
 
 ### TODO List
 1. Add a run command
@@ -46,4 +46,4 @@ Please read [Contributing](https://github.com/AdityaNG/VPM/blob/main/CONTRIBUTIN
 
 ## License
 
-This software is released under the [MIT License](https://github.com/AdityaNG/VPM/blob/main/LICENSE.txt).
+This software is released under the [MIT License](https://github.com/AdityaNG/VIVP/blob/main/LICENSE.txt).

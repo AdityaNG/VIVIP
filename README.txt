@@ -5,7 +5,7 @@ Installing
 
 Install with pip (python>=3.6):
 
-$ pip install git+https://github.com/AdityaNG/VPM.git
+$ pip install git+https://github.com/AdityaNG/VIVP.git
 
 
 Creating a Verilog Package

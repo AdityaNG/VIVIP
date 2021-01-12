@@ -8,7 +8,7 @@ setup(
     packages=['libvivp'],
     scripts=['bin/vivp'],
     license='LICENSE.txt',
-    url='https://github.com/AdityaNG/VPM',
+    url='https://github.com/AdityaNG/VIVP',
     description="A package manager for Verilog Projects",
     long_description=open('README.txt').read(),
     python_requires='>=3.6',
