@@ -37,4 +37,4 @@ If you see something that you know you can help fix or implement, do contact me 
 
 ## License
 
-This software is released under the [GNU GPL v3 license](LICENSE).
+This software is released under the [MIT License](LICENSE).
