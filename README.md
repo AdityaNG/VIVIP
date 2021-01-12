@@ -1,10 +1,13 @@
 # VPM
-<img src="http://github.com/AdityaNG/VPM/blob/master/docs/img/demo1.png?raw=true">
-Verilog Package Manager 
-A simple package manager for all your verilog projects
+
+<img src="https://github.com/AdityaNG/VPM/blob/main/docs/img/demo1.png?raw=true" width="600">
+
+
+Verilog Package Manager. A simple package manager for all your verilog projects
+
 ## Installing
 
-Clone the repository:
+Install with pip (python>=3.6):
 
 ```bash
 $ pip install git+https://github.com/AdityaNG/VPM.git
