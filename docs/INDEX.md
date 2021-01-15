@@ -1,4 +1,4 @@
-# VIVP
+# VIVP Documentation
 
 <img src="https://github.com/AdityaNG/VIVP/blob/main/docs/img/example1.png?raw=true" width="600">
 
