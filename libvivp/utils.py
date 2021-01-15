@@ -6,6 +6,17 @@ VPACKAGE_JSON = 'vpackage.json'
 VPACKAGE_HIDDEN = '.vpackage'
 REPOS = 'repos'
 
+def replaceAll(s, subs, rep):
+    count = 0
+    for i in s:
+        if i == subs:
+            count += 1
+    return s.replace(subs, rep, count)
+
+def make_safe(s):
+    return replaceAll(s, " ", "\\ ")
+
+
 def is_vivp_dir(d):
     return os.path.exists(os.path.join(d, VPACKAGE_JSON))
     if not os.path.exists(os.path.join(d, VPACKAGE_JSON)):

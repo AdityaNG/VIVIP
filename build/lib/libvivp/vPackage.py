@@ -71,6 +71,18 @@ class vPackage:
             if d == dep:
                 return True
         return False
+    
+    def has_file(self, d):
+        for dep in self.data['fileList']:
+            if d == dep:
+                return True
+        return False
+    
+    def has_testbench(self, d):
+        for dep in self.data['testBench']:
+            if d == dep:
+                return True
+        return False
 
     def __repr__(self):
         return "vPackage()"

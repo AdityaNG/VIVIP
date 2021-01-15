@@ -27,6 +27,12 @@ def is_vivp_file(d):
     except IOError:
       return False
     
+def is_sub_file(vivp_dir, d):
+    try:
+      open(os.path.join(vivp_dir, d), "r")
+      return True
+    except IOError:
+      return False
 
 def is_valid_git_url(u):
     try:

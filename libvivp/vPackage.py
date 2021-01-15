@@ -7,7 +7,6 @@ from .utils import is_vivp_file
         'packageAuthors' : [],
     },
     'packageURL': '',
-    'fileList': [],
     'testBench': [],
     'dependencyList': []
 }
@@ -61,19 +60,12 @@ class vPackage:
                 'packageAuthors' : [],
             },
             'packageURL': '',
-            'fileList': [],
             'testBench': [],
             'dependencyList': []
         }
     
     def has_dependency(self, d):
         for dep in self.data['dependencyList']:
-            if d == dep:
-                return True
-        return False
-    
-    def has_file(self, d):
-        for dep in self.data['fileList']:
             if d == dep:
                 return True
         return False

@@ -1,6 +1,6 @@
 import os
 import json
-from .utils import is_vivp_dir, VPACKAGE_JSON, is_valid_git_url, VPACKAGE_HIDDEN, get_repos_dir, get_cache_dir, is_sub_file
+from .utils import *
 from .vPackage import vPackage
 from git import Git
 import git
@@ -43,7 +43,7 @@ def install(vivp_dir, package_list):
     refresh_all_dependencies(vivp_dir)
     pass
 
-def update(vivp_dir, package_list):
+def update(vivp_dir):
     if not is_vivp_dir(vivp_dir):
         raise Exception("Not VIVP directory")
     refresh_all_dependencies(vivp_dir)
@@ -116,14 +116,11 @@ def execute(vivp_dir):
         raise Exception("Not VIVP directory")
     p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=True)
     file_list = []
-    for f in p.data['fileList']:
-        file_list.append(f)
-    for f in p.data['testBench']:
-        file_list.append(f)
-    dependency_files = get_files_from_dependencies(vivp_dir)
-    for f in dependency_files:
-        file_list.append(f)
 
+    for f in p.data['testBench']:
+        #file_list.append('"' + os.path.join(vivp_dir, f) + '"')
+        file_list.append(make_safe(os.path.join(vivp_dir, f)))
+    
     vcd_files = list(filter(lambda x: x.endswith(".vcd"), os.listdir() ))
     for vcd_file in vcd_files:
         os.remove(vcd_file)
@@ -134,9 +131,15 @@ def execute(vivp_dir):
 
     # TODO : Load files from .vpackage/repos/
 
-    exec_str = "iverilog " + " ".join(file_list)
-    print("[vivp]", exec_str)
-    proc = subprocess.Popen(exec_str.split(" "))
+    #exec_str = "iverilog " + " ".join(file_list)
+    exec_arr = ["iverilog"]
+    for f in file_list:
+        exec_arr.append(f)
+    exec_arr.append("-I")
+    exec_arr.append(".vpackage/repos/")
+    print("[vivp]", " ".join(exec_arr))
+    #proc = subprocess.Popeen(exec_str.split(" "))
+    proc = subprocess.Popen(exec_arr)
     proc.wait()
 
     exec_str = "vvp a.out" # check list of .out files
@@ -157,33 +160,58 @@ def execute(vivp_dir):
         Exception("Failed : too many VCD Files")
     pass
 
-def add_files(vivp_dir, file_list):
+def execute_legacy1(vivp_dir):
     if not is_vivp_dir(vivp_dir):
         raise Exception("Not VIVP directory")
     p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=True)
-    for f in file_list:
-        if is_sub_file(vivp_dir, f):
-            if not p.has_file(f):
-                p.data['fileList'].append(f)
-            else:
-                raise Exception("File already in list : " + f)
-        else:
-            raise Exception("Invalid path : " + f)
-    p.save()
+    file_list = []
+    for f in p.data['fileList']:
+        #file_list.append('"' + os.path.join(vivp_dir, f) + '"')
+        file_list.append(make_safe(os.path.join(vivp_dir, f)))
+    for f in p.data['testBench']:
+        #file_list.append('"' + os.path.join(vivp_dir, f) + '"')
+        file_list.append(make_safe(os.path.join(vivp_dir, f)))
+    dependency_files = get_files_from_dependencies(vivp_dir)
+    for f in dependency_files:
+        #file_list.append('"' + f + '"')
+        file_list.append(make_safe(os.path.join(vivp_dir, f)))
 
-def remove_files(vivp_dir, file_list):
-    if not is_vivp_dir(vivp_dir):
-        raise Exception("Not VIVP directory")
-    p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=True)
+    vcd_files = list(filter(lambda x: x.endswith(".vcd"), os.listdir() ))
+    for vcd_file in vcd_files:
+        os.remove(vcd_file)
+    
+    out_files = list(filter(lambda x: x.endswith(".out"), os.listdir() ))
+    for out_file in out_files:
+        os.remove(out_file)
+
+    # TODO : Load files from .vpackage/repos/
+
+    exec_str = "iverilog " + " ".join(file_list)
+    exec_arr = ["iverilog"]
     for f in file_list:
-        if is_sub_file(vivp_dir, f):
-            if p.has_file(f):
-                p.data['fileList'].remove(f)
-            else:
-                raise Exception("File not in list : " + f)
-        else:
-            raise Exception("Invalid path : " + f)
-    p.save()
+        exec_arr.append(f)
+    print("[vivp]", exec_str)
+    #proc = subprocess.Popen(exec_str.split(" "))
+    proc = subprocess.Popen(exec_arr)
+    proc.wait()
+
+    exec_str = "vvp a.out" # check list of .out files
+    print("[vivp]", exec_str)
+    proc = subprocess.Popen(exec_str.split(" "))
+    proc.wait()
+
+    vcd_files = list(filter(lambda x: x.endswith(".vcd"), os.listdir() ))
+    if len(vcd_files)==0:
+        Exception("Failed : no VCD Files")
+    elif len(vcd_files)==1:
+        exec_str = "gtkwave " + vcd_files[0]
+        print("[vivp]", exec_str)
+        proc = subprocess.Popen(exec_str.split(" "))
+        proc.wait()
+        print("[vivp]", "Done...")
+    else:
+        Exception("Failed : too many VCD Files")
+    pass
 
 def add_testbench(vivp_dir, file_list):
     if not is_vivp_dir(vivp_dir):

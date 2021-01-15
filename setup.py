@@ -7,7 +7,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setuptools.setup(
     name="vivp",
-    version="0.0.5",
+    version="0.0.6",
     author="Aditya NG",
     author_email="adityang5@gmail.com",
     packages=['libvivp'],
