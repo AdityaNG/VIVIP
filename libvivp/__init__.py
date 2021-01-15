@@ -53,7 +53,6 @@ def remove(vivp_dir, package_list):
         raise Exception("Not VIVP directory")
     p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=True)
 
-
     for dep in package_list:
         if is_valid_git_url(dep):
             if p.has_dependency(dep):
@@ -71,8 +70,18 @@ def remove(vivp_dir, package_list):
 def list_vivp(vivp_dir):
     if not is_vivp_dir(vivp_dir):
         raise Exception("Not VIVP directory")
-    print(os.listdir(get_repos_dir(vivp_dir)))
-    pass
+    # print(os.listdir(get_repos_dir(vivp_dir)))
+    p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=False)
+    #dependency_files_list = []
+    if os.path.isdir(get_repos_dir(vivp_dir)):
+        folder_list = os.listdir(get_repos_dir(vivp_dir))
+        for dep in folder_list:
+            print(dep)
+            package_dep_path = os.path.join(get_repos_dir(vivp_dir), dep)
+            p = vPackage(filePath=os.path.join(package_dep_path, VPACKAGE_JSON), createNew=False, saveable=False)
+            for dep_file in p.data['fileList']:
+                print("\t", dep_file)
+                #dependency_files_list.append(os.path.join(package_dep_path, dep_file))
 
 def refresh_all_dependencies(vivp_dir):
     if not is_vivp_dir(vivp_dir):
@@ -236,6 +245,34 @@ def remove_testbench(vivp_dir, file_list):
         if is_sub_file(vivp_dir, f):
             if p.has_testbench(f):
                 p.data['testBench'].remove(f)
+            else:
+                raise Exception("File not in list : " + f)
+        else:
+            raise Exception("Invalid path : " + f)
+    p.save()
+
+def add_files(vivp_dir, file_list):
+    if not is_vivp_dir(vivp_dir):
+        raise Exception("Not VIVP directory")
+    p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=True)
+    for f in file_list:
+        if is_sub_file(vivp_dir, f):
+            if not p.has_file(f):
+                p.data['fileList'].append(f)
+            else:
+                raise Exception("File already in list : " + f)
+        else:
+            raise Exception("Invalid path : " + f)
+    p.save()
+
+def remove_files(vivp_dir, file_list):
+    if not is_vivp_dir(vivp_dir):
+        raise Exception("Not VIVP directory")
+    p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=True)
+    for f in file_list:
+        if is_sub_file(vivp_dir, f):
+            if p.has_file(f):
+                p.data['fileList'].remove(f)
             else:
                 raise Exception("File not in list : " + f)
         else:
