@@ -1,6 +1,6 @@
 # VIVP
 
-<img src="https://github.com/AdityaNG/VIVP/blob/main/docs/img/demo1.png?raw=true" width="600">
+<img src="https://github.com/AdityaNG/VIVP/blob/main/docs/img/example1.png?raw=true" width="600">
 
 VIVP Installs Verilog Packages
 Verilog Package Manager. A simple package manager for all your verilog projects
@@ -34,6 +34,15 @@ To remove dependencies :
 $ vivp -i https://github.com/...
 ```
 All dependencies are stored at `project_directory/.vpackage/repos/`
+
+
+To run your project, first add the list of testbent files and then eecute with -e: 
+```bash
+$ vivp -add_testbench testbench.v
+$ vivp -e
+```
+
+<img src="https://github.com/AdityaNG/VIVP/blob/main/docs/img/demo1.png?raw=true" width="600">
 
 ## Contributing
 If you see something that you know you can help fix or implement, do contact me at :

@@ -46,7 +46,7 @@ argparser.add_argument('-e', '--execute', help='Execute the current package', ac
 argparser.add_argument('-at', '--add-testbench', help='Add testbench to package', nargs='+')
 argparser.add_argument('-rt', '--remove-testbench', help='Remove testbench from package', nargs='+')
 
-argparser.add_argument('-l', '--list', help='List all packages')
+argparser.add_argument('-l', '--list', help='List all packages', action='store_true')
 args = argparser.parse_args()
 
 
@@ -87,7 +87,7 @@ try:
         
         elif args.execute:
             libvivp.execute(os.getcwd())
-            
+
         elif args.add_testbench:
             libvivp.add_testbench(os.getcwd(), args.add_testbench)
         elif args.remove_testbench:

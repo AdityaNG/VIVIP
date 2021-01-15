@@ -71,6 +71,7 @@ def remove(vivp_dir, package_list):
 def list_vivp(vivp_dir):
     if not is_vivp_dir(vivp_dir):
         raise Exception("Not VIVP directory")
+    print(os.listdir(get_repos_dir(vivp_dir)))
     pass
 
 def refresh_all_dependencies(vivp_dir):
