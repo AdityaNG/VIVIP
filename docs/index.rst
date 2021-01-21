@@ -13,7 +13,6 @@ A simle ting::
    source/utility
 
 
-
 Indices and tables
 ==================
 
