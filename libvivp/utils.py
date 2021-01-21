@@ -31,7 +31,7 @@ def replaceAll(s, subs, rep):
 
 
 def make_safe(s):
-    """Replaces all spaces with \\\\"""
+    """Replaces all spaces with '\\ '"""
     return replaceAll(s, " ", "\\ ")
 
 

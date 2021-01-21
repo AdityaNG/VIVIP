@@ -27,8 +27,6 @@ vpackage.json sample
 """
 
 
-
-
 class vPackage:
     """
     vPackage class takes filePath to vpackage.json as argument and loads it to self.data
