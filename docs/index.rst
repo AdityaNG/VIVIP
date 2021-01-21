@@ -10,7 +10,7 @@ A simle ting::
 .. toctree::
    :maxdepth: 2
 
-   source/utility
+   utility
 
 
 Indices and tables
