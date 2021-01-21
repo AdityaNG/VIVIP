@@ -3,7 +3,7 @@
 <a href="https://pypi.org/project/vivp/"> <img src="https://img.shields.io/pypi/v/vivp.svg"></a>
 <a href="https://pypi.org/project/vivp/"> <img src="https://img.shields.io/pypi/dm/vivp.svg"></a>
 <a href="https://vivp.readthedocs.io/en/latest/"> <img src="https://readthedocs.org/projects/vivp/badge/?version=latest"></a>
-[![Coverage Status](https://coveralls.io/repos/github/AdityaNG/VIVP/badge.svg?branch=main)](https://coveralls.io/github/AdityaNG/VIVP?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/AdityaNG/VIVP/badge.svg)](https://coveralls.io/github/AdityaNG/VIVP)
 
 <img src="https://github.com/AdityaNG/VIVP/blob/main/docs/img/VIvP_logo.png?raw=true" width="600">
 
