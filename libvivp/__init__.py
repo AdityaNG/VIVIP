@@ -7,7 +7,26 @@ import git
 import shutil
 import subprocess
 
+"""
+# libvivp
+
+Contains all helper functions to interface with a vpackage
+
+"""
+
+
 def setup(vivp_dir, packageName, packageAuthors, packageURL):
+    """
+    ## setup(vivp_dir, packageName, packageAuthors, packageURL)
+    Runs a quick setup on the vivp_dir
+
+    Creates vpackage.json with packageName, packageAuthors and packageURL
+
+    ### Raises exception if
+
+    1. Input directory already has a vpackage.json
+    2. packageURL is not a valid URL
+    """
     if is_vivp_dir(vivp_dir):
         raise Exception("Already VIVP directory")
     p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=True, saveable=True)
@@ -18,12 +37,21 @@ def setup(vivp_dir, packageName, packageAuthors, packageURL):
             p.data['packageURL'] = packageURL
         else:
             raise Exception('Invalid packageURL : ' + packageURL)
-    #g = Git(vivp_dir)
     p.save()
     print(p)
     pass
 
 def install(vivp_dir, package_list):
+    """
+    ## install(vivp_dir, package_list)
+    Installs a list of packages (package_list)
+
+    ### Raises exception if
+
+    1. Input directory does not have a vpackage.json
+    2. Dependency already exists
+    3. Invalid dependency URL
+    """
     if not is_vivp_dir(vivp_dir):
         raise Exception("Not VIVP directory")
     p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=True)
@@ -43,12 +71,32 @@ def install(vivp_dir, package_list):
     refresh_all_dependencies(vivp_dir)
     pass
 
+
 def update(vivp_dir):
+    """
+    ## update(vivp_dir)
+    Updates all the depenencies to appropriate version
+
+    ### Raises exception if
+
+    1. Input directory does not have a vpackage.json
+    """
     if not is_vivp_dir(vivp_dir):
         raise Exception("Not VIVP directory")
     refresh_all_dependencies(vivp_dir)
 
+
 def remove(vivp_dir, package_list):
+    """
+    ## remove(vivp_dir, package_list)
+    Removes the list of dependencies (package_list)
+
+    ### Raises exception if
+
+    1. Input directory does not have a vpackage.json
+    2. Dependency does not exist
+    3. Invalid dependency URL
+    """
     if not is_vivp_dir(vivp_dir):
         raise Exception("Not VIVP directory")
     p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=True)
@@ -67,10 +115,19 @@ def remove(vivp_dir, package_list):
     refresh_all_dependencies(vivp_dir)
     pass
 
+
 def list_vivp(vivp_dir):
+    """
+    ## list_vivp(vivp_dir)
+    Lists all the dependencies and the modules they have exposed throught the 'fileList'
+
+    ### Raises exception if
+
+    1. Input directory does not have a vpackage.json
+    """
+    # TODO Return the result as dictionary
     if not is_vivp_dir(vivp_dir):
         raise Exception("Not VIVP directory")
-    # print(os.listdir(get_repos_dir(vivp_dir)))
     p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=False)
     #dependency_files_list = []
     if os.path.isdir(get_repos_dir(vivp_dir)):
@@ -84,6 +141,19 @@ def list_vivp(vivp_dir):
                 #dependency_files_list.append(os.path.join(package_dep_path, dep_file))
 
 def refresh_all_dependencies(vivp_dir):
+    """
+    ## refresh_all_dependencies(vivp_dir)
+    Updates all the depenencies to appropriate version
+
+    Clears the cache entirely and performs a git clone on all dependencies
+
+    ### Raises exception if
+
+    1. Input directory does not have a vpackage.json
+    """
+
+    # TODO use git clone
+    # TODO add version control support for the dependencies
     if not is_vivp_dir(vivp_dir):
         raise Exception("Not VIVP directory")
     p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=False)
@@ -93,7 +163,6 @@ def refresh_all_dependencies(vivp_dir):
     REPOS_DIR = get_repos_dir(vivp_dir)
     # Remove VPACKAGE_HIDDEN directory
     if os.path.isdir(CACHE_DIR):
-        #os.rm(CACHE_DIR)
         shutil.rmtree(CACHE_DIR)
 
     os.makedirs(CACHE_DIR)
@@ -105,9 +174,16 @@ def refresh_all_dependencies(vivp_dir):
         output = git.Git(REPOS_DIR).clone(dep)
         print(output)
 
-    pass
 
 def get_files_from_dependencies(vivp_dir):
+    """
+    ## get_files_from_dependencies(vivp_dir)
+    Returns the list of all file paths that are exposed by 'fileList'
+
+    ### Raises exception if
+
+    1. Input directory does not have a vpackage.json
+    """
     if not is_vivp_dir(vivp_dir):
         raise Exception("Not VIVP directory")
     p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=False)
@@ -122,13 +198,29 @@ def get_files_from_dependencies(vivp_dir):
     return dependency_files_list
 
 def execute(vivp_dir):
+    """
+    ## execute(vivp_dir)
+    Runs the testbench : 
+
+    ```bash
+    $ rm *.out *.vcd
+    $ iverilog [testBench List] -I vivp_dir/.vpackage/repos/
+    $ vvp a.out
+    $ gtkwave {*.vcd}[0]
+    ```
+
+    ### Raises exception if
+
+    1. Input directory does not have a vpackage.json
+    2. More than 1 VCD file
+    3. No VCD Files
+    """
     if not is_vivp_dir(vivp_dir):
         raise Exception("Not VIVP directory")
     p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=True)
     file_list = []
 
     for f in p.data['testBench']:
-        #file_list.append('"' + os.path.join(vivp_dir, f) + '"')
         file_list.append(make_safe(os.path.join(vivp_dir, f)))
     
     vcd_files = list(filter(lambda x: x.endswith(".vcd"), os.listdir() ))
@@ -141,14 +233,12 @@ def execute(vivp_dir):
 
     # TODO : Load files from .vpackage/repos/
 
-    #exec_str = "iverilog " + " ".join(file_list)
     exec_arr = ["iverilog"]
     for f in file_list:
         exec_arr.append(f)
     exec_arr.append("-I")
     exec_arr.append(".vpackage/repos/")
     print("[vivp]", " ".join(exec_arr))
-    #proc = subprocess.Popeen(exec_str.split(" "))
     proc = subprocess.Popen(exec_arr)
     proc.wait()
 
@@ -170,7 +260,20 @@ def execute(vivp_dir):
         Exception("Failed : too many VCD Files")
     pass
 
+
 def execute_legacy1(vivp_dir):
+    """
+    ## execute_legacy1(vivp_dir)
+    Legacy testbench; Gathers all fileList from all dependencies and fileList+testBench List from current vivp_dir and runs it through iverilog
+
+    Better to use include statements instead
+
+    ### Raises exception if
+
+    1. Input directory does not have a vpackage.json
+    2. More than 1 VCD file
+    3. No VCD Files
+    """
     if not is_vivp_dir(vivp_dir):
         raise Exception("Not VIVP directory")
     p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=True)
@@ -223,7 +326,19 @@ def execute_legacy1(vivp_dir):
         Exception("Failed : too many VCD Files")
     pass
 
+
 def add_testbench(vivp_dir, file_list):
+    """
+    ## add_testbench(vivp_dir, file_list)
+    Adds file_list to 'testBench' list 
+
+
+    ### Raises exception if
+
+    1. Input directory does not have a vpackage.json
+    2. File Already in List
+    3. Invalid file path
+    """
     if not is_vivp_dir(vivp_dir):
         raise Exception("Not VIVP directory")
     p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=True)
@@ -237,7 +352,19 @@ def add_testbench(vivp_dir, file_list):
             raise Exception("Invalid path : " + f)
     p.save()
 
+
 def remove_testbench(vivp_dir, file_list):
+    """
+    ## remove_testbench(vivp_dir, file_list)
+    Removes file_list from 'testBench' list 
+
+
+    ### Raises exception if
+
+    1. Input directory does not have a vpackage.json
+    2. File not in List
+    3. Invalid file path
+    """
     if not is_vivp_dir(vivp_dir):
         raise Exception("Not VIVP directory")
     p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=True)
@@ -251,7 +378,19 @@ def remove_testbench(vivp_dir, file_list):
             raise Exception("Invalid path : " + f)
     p.save()
 
+
 def add_files(vivp_dir, file_list):
+    """
+    ## add_files(vivp_dir, file_list)
+    Adds file_list to 'fileList' list 
+
+
+    ### Raises exception if
+
+    1. Input directory does not have a vpackage.json
+    2. File Already in List
+    3. Invalid file path
+    """
     if not is_vivp_dir(vivp_dir):
         raise Exception("Not VIVP directory")
     p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=True)
@@ -265,7 +404,19 @@ def add_files(vivp_dir, file_list):
             raise Exception("Invalid path : " + f)
     p.save()
 
+
 def remove_files(vivp_dir, file_list):
+    """
+    ## remove_files(vivp_dir, file_list)
+    Removes file_list from 'fileList' list 
+
+
+    ### Raises exception if
+
+    1. Input directory does not have a vpackage.json
+    2. File not in List
+    3. Invalid file path
+    """
     if not is_vivp_dir(vivp_dir):
         raise Exception("Not VIVP directory")
     p = vPackage(filePath=os.path.join(vivp_dir, VPACKAGE_JSON), createNew=False, saveable=True)
