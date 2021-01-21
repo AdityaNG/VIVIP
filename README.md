@@ -1,7 +1,8 @@
 # VIVP
 
 <a href="https://pypi.org/project/vivp/"> <img src="https://img.shields.io/pypi/v/vivp.svg"></a>
-<a href="https://pypi.org/project/vivp/"> <img src="https://readthedocs.org/projects/vivp/badge/?version=latest"></a>
+<a href="https://pypi.org/project/vivp/"> <img src="https://img.shields.io/pypi/dm/vivp.svg"></a>
+<a href="https://vivp.readthedocs.io/en/latest/"> <img src="https://readthedocs.org/projects/vivp/badge/?version=latest"></a>
 
 
 <img src="https://github.com/AdityaNG/VIVP/blob/main/docs/img/example1.png?raw=true" width="600">
