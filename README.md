@@ -1,5 +1,7 @@
 # VIVP
 
+<img src="https://img.shields.io/pypi/v/vivp.svg">
+
 <img src="https://github.com/AdityaNG/VIVP/blob/main/docs/img/example1.png?raw=true" width="600">
 
 VIVP Installs Verilog Packages
