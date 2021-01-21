@@ -8,6 +8,17 @@ VPACKAGE_JSON = 'vpackage.json'
 VPACKAGE_HIDDEN = '.vpackage'
 REPOS = 'repos'
 
+MOTD_TEXT = """ ██▒   █▓ ██▓ ██▒   █▓ ██▓███  
+▓██░   █▒▓██▒▓██░   █▒▓██░  ██▒
+ ▓██  █▒░▒██▒ ▓██  █▒░▓██░ ██▓▒
+  ▒██ █░░░██░  ▒██ █░░▒██▄█▓▒ ▒
+   ▒▀█░  ░██░   ▒▀█░  ▒██▒ ░  ░
+   ░ ▐░  ░▓     ░ ▐░  ▒▓▒░ ░  ░
+   ░ ░░   ▒ ░   ░ ░░  ░▒ ░     
+     ░░   ▒ ░     ░░  ░░       
+      ░   ░        ░           
+     ░            ░            """
+
 def replaceAll(s, subs, rep):
     """
     Replaces all substrings in a string with another string

@@ -1,8 +1,153 @@
 <html>
     <head>
-        <title>VIVP</title>
+        <title>VIvP</title>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8">
+        <link rel="stylesheet" href="pycco.css">
     </head>
     <body>
-        
+        <div id="container">
+            <div id="background"></div>
+            <div class="section">
+                <div class="docs"><h1>
+                    
+                </h1></div>
+            </div>
+
+            <div class="clearall">
+                <div class="section" id="vivp">
+                    <div class="docs">
+                        <div class="octowrap">
+                        <a class="octothorpe" href="#section-0">#</a>
+                        </div>
+                        <h1>VIvP Installs Verilog Packages</h1>
+                        <p>VIvP is a package manager for the hardware definition language Verilog</p>
+                    </div>
+                    <div class="code">
+                        <img src="img/VIvP_logo.png" width="400">
+                    </div>
+                </div>
+                <div class="clearall"></div>
+                
+                <div class="section" id="vivp">
+                    <div class="docs">
+                        <div class="octowrap">
+                        <a class="octothorpe" href="#installation">#installation</a>
+                        </div>
+                        <h1>Installation</h1>
+                        <p>Intall VIvP using the following command</p>
+                        <code class="language-bash">
+                            $ pip install vivp # python_requires='>=3.6'
+                        </code>
+
+                        <p>To intall the very latest version of vivp directly from github, use the following</p>
+                        <code class="language-bash">
+                            $ pip install git+https://github.com/AdityaNG/VIvP.git
+                        </code>
+                        
+
+                        <div class="octowrap">
+                            <a class="octothorpe" href="#documentation">#documentation</a>
+                        </div>
+                        <h1>Documentation</h1>
+                        <p>The projects docs are stored in the docs/ directory of the github repository and can be accessed at <a href="https://adityang.github.io/VIVP/">https://adityang.github.io/VIVP/</a></p>
+                        <p>The docs have been generated using <a href="https://pycco-docs.github.io/pycco/">Pycco</a> using the following command</p>
+                        <code class="language-bash">
+                            $ pycco libvivp/*.py
+                        </code>
+                        <hr>
+                        
+                        <h2>List of Docs</h2>
+                        <table>
+                            <tr>
+                                <th>No.</th>
+                                <th>Title</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td> <a href="__init__.html">__init__.py</a> </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td> <a href="libvivp.html">libvivp.py</a> </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td> <a href="vPackage.html">vPackage.py</a> </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="code">
+                        <!-- img src="img/VIvP_Dep_Gen_small.png" -->
+                        <img src="img/VIvP_Dep.png">
+                    </div>
+                </div>
+                <div class="clearall"></div>
+
+
+                <div class="section" id="vivp">
+                    <div class="docs">
+                        <div class="octowrap">
+                        <a class="octothorpe" href="#section-0">#</a>
+                        </div>
+                        <h1>How VIvP helps in hardware design</h1>
+                        <p>Let's say you wanted to build a Ripple Carry Adder for this ALU you are designing</p>
+                        <p>Conventionally, you'd have to design the half adders, full adders and other necessary components before you can start building your RCA. This would involve designing and testing every small component</p>
+                        <p>But with VIvP, you can simply install the BasicModules depenency with</p>
+                        <code class="language-bash">
+                            $ vivp -i https://github.com/AdityaNG/BasicModules
+                        </code>
+                        
+                        <br>
+                        <p>Now you can directly include the "BasicModules/half_adder.v" and "BasicModules/full_adder.v" directly into your RCA module</p>
+                    </div>
+                    <div class="code">
+                        <!-- img src="img/VIvP_Dep.png" width="400" -->
+                        <img src="img/VIvP_Dep_Ver.png" width="400">
+                        <img src="img/example1.png" width="400">
+                        <!-- img src="img/example2.png" width="400" -->
+                        
+                    </div>
+                </div>
+                <div class="clearall"></div>
+
+                <div class="section" id="vivp">
+                    <div class="docs">
+                        <div class="octowrap">
+                        <a class="octothorpe" href="#section-0">#</a>
+                        </div>
+                        <h1>Version control and Test Verification in depenencies</h1>
+                        <p>All dependencies can be have their own test benches that can be verified to show that said depencency is functioning correctly</p>
+                        <p>Dependencies can also be selected by version. So lets say your favourite depencency got updated and that removed certain functionality, you can easily downgrade and select a version of that depencency that works for you</p>
+                        <p>So you could have the BasicModules being managed by AdityaNG and Bob could depend on this repository for the full_adder and half_adder modules. He can also specifically ask for a version of the BasicModules repo that he knows works for his ALU</p>
+                        <br>
+                        <p>Now you can directly include the "BasicModules/half_adder.v" and "BasicModules/full_adder.v" directly into your RCA module</p>
+                    </div>
+                    <div class="code">
+                        <!-- img src="img/example2.png" width="400" -->
+
+                        <img src="img/VIvP_Dep_Gen_small.png">
+                        
+                    </div>
+                </div>
+                <div class="clearall"></div>
+
+                <div class="section" id="vivp">
+                    <div class="docs">
+                        <div class="octowrap">
+                        <a class="octothorpe" href="#section-0">#</a>
+                        </div>
+                        <h1>An Example</h1>
+                        <p>An example of the above can be seen in <a href="https://github.com/AdityaNG/RippleCarryAdder">AdityaNG/RippleCarryAdder</a></p>
+                        <p>The RCA implemented in the above project depends on adders from <a href="https://github.com/AdityaNG/BasicModules">AdityaNG/BasicModules</a></p>
+                    </div>
+                    <div class="code">
+                        <!-- img src="img/example2.png" width="400" -->
+
+                        <img src="img/RCA_Dep.png">
+                    </div>
+                </div>
+                <div class="clearall"></div>
+            </div>
+        </div>
     </body>
 </html>
