@@ -1,6 +1,6 @@
 # VIVP
 
-<img src="https://img.shields.io/pypi/v/vivp.svg">
+<a href="https://pypi.org/project/vivp/"> <img src="https://img.shields.io/pypi/v/vivp.svg"></a>
 
 <img src="https://github.com/AdityaNG/VIVP/blob/main/docs/img/example1.png?raw=true" width="600">
 
