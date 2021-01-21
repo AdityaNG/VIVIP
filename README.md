@@ -4,8 +4,7 @@
 <a href="https://pypi.org/project/vivp/"> <img src="https://img.shields.io/pypi/dm/vivp.svg"></a>
 <a href="https://vivp.readthedocs.io/en/latest/"> <img src="https://readthedocs.org/projects/vivp/badge/?version=latest"></a>
 
-
-<img src="https://github.com/AdityaNG/VIVP/blob/main/docs/img/example1.png?raw=true" width="600">
+<img src="https://github.com/AdityaNG/VIVP/blob/main/docs/img/VIvP_logo.png?raw=true" width="600">
 
 VIVP Installs Verilog Packages
 Verilog Package Manager. A simple package manager for all your verilog projects.
