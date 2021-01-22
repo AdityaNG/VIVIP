@@ -4,7 +4,7 @@ VIvP
   :width: 400
   :alt: Alternative text
 
-| VIvP is a simple package manager for all your Verilog projects. TEST
+| VIvP is a simple package manager for all your Verilog projects. 
 
 .. image:: https://img.shields.io/pypi/v/vivp.svg
   :alt: Pypi version
@@ -37,6 +37,7 @@ Documentation
   documentation
   description 
   examples
+  diy
 
 Indices and tables
 ==================

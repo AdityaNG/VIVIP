@@ -7,9 +7,8 @@
 
 <img src="https://github.com/AdityaNG/VIVP/blob/main/docs/img/VIvP_logo.png?raw=true" width="600">
 
-VIVP is a Verilog Package Manager. A simple package manager for all your verilog projects.
+VIvP is a simple package manager for all your Verilog projects. 
 
-Packages installed by vivp can be included using the "`include" directive
 
 ## Installing
 
@@ -24,32 +23,7 @@ To install the very latest version [may be buggy]
 $ pip install git+https://github.com/AdityaNG/VIVP.git
 ```
 
-## Creating a Verilog Package
-
-cd into the desired directory run the following; you will be prompted to enter your package Name, list of Authors and an optional remote URL
-
-```bash
-$ vivp -s .   # setup
-```
-To install dependencies : 
-```bash
-$ vivp -i https://github.com/...
-```
-To remove dependencies : 
-```bash
-$ vivp -r https://github.com/...
-```
-All dependencies are stored at `project_directory/.vpackage/repos/`
-To view the list of dependencies installed and the modules they offer, use the --list or -l option
-<img src="https://github.com/AdityaNG/VIVP/blob/main/docs/img/example2.png?raw=true" width="600">
-
-To run your project, first add the list of testbench files (done only once); then --execute or -e: 
-```bash
-$ vivp -add_testbench testbench.v
-$ vivp -e
-```
-
-<img src="https://github.com/AdityaNG/VIVP/blob/main/docs/img/demo1.png?raw=true" width="600">
+More documentation can be found at : https://vivp.readthedocs.io/en/latest/index.html
 
 ## Contributing
 If you see something that you know you can help fix or implement, do contact me at :
