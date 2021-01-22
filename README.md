@@ -39,8 +39,9 @@ Please read [Contributing](https://github.com/AdityaNG/VIVP/blob/main/CONTRIBUTI
 4. Install / Remove command triggers a FULL cache clear and re-download. This needs to be optimized
 5. Recursive imports need to be implemented with a dependency tree check
 6. Make use of version control to download a specific version of a package
-7. Unit tests to see if package is functional
+7. (DONE) Unit tests to see if package is functional
 8. Make website on git to give introduction, show list of modules on git, look pretty, SEO : https://adityang.github.io/VIVP/
+8. (DONE) Documentation of the project : https://vivp.readthedocs.io/
 
 ## License
 
